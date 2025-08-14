@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitación 15 años — Jeydi Arias</title>
+  <style>
+    :root{
+      --bg:#0f2a22;
+      --bg-soft:#14362c;
+      --gold:#d4af37;
+      --gold-2:#e7c453;
+      --text:#f7f4ea;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      min-height:100vh;display:flex;justify-content:center;align-items:center;
+      background:radial-gradient(80% 80% at 50% 10%, #153b2f 0%, var(--bg) 60%);
+      color:rgb(255, 255, 255);text-shadow: 1px 1px 4px rgb(13, 51, 8); font-family: ui-serif, Georgia, serif;letter-spacing:.2px;
+      padding:10px;
+    }
+    .card{
+      width:100%;max-width:500px;background-image: url(imagen.jpg);background-repeat: no-repeat;background-size: cover;background-position: center center;
+      border-radius:20px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 0 0 2px rgba(212,175,55,.15);
+      position:relative;overflow:hidden;isolation:isolate;border:solid #e7c453;
+    }
+    header{text-align:center;margin-top:8px;}
+    .tiara{width:60px;margin:0 auto 10px;display:block;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3));color:var(--gold);}
+    h1{font-size:clamp(28px,7vw,42px);margin:2px 0 10px;color:rgb(245, 220, 0);font-weight:600;letter-spacing:.5px; text-shadow: 0.5px 0.5px 2px rgba(236, 236, 236, 0.589);}
+    .lead{font-size:clamp(14px,4vw,16px);}
+    .quote{margin:16px auto 22px;text-align:center;font-size:clamp(14px,4vw,16px);line-height:1.5;}
+    .details{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;background:rgba(255, 255, 255, 0.26);
+      border:1px solid rgba(255, 196, 0, 0.692);border-radius:16px;padding:12px;max-width:100%;margin:0 auto 18px;}
+    .date,.time{text-align:center;color:rgb(245, 220, 0);font-weight:700;font-size:clamp(18px,5vw,26px);flex:1 1 100%; text-shadow: 0.5px 0.5px 2px rgba(236, 236, 236, 0.589);}
+    .time{color:rgb(245, 220, 0);text-shadow: 0.5px 0.5px 2px rgba(236, 236, 236, 0.589);}
+    .address{text-align:center;margin:6px auto 22px;font-size:clamp(14px,4vw,16px);}
+    .actions{display:flex;flex-direction:column;gap:10px;align-items:center;}
+    .btn{appearance:none;border:none;cursor:pointer;padding:12px 20px;border-radius:999px;font-size:clamp(14px,4vw,18px);font-weight:600;letter-spacing:.3px;color:var(--text);
+      background:linear-gradient(180deg, #1e493d, #163b32);border:1px solid rgba(212,175,55,.4);box-shadow:0 6px 16px rgba(0,0,0,.35);
+      text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:280px;}
+    .btn--outline{background:rgba(15, 85, 15, 0.568); border: solid 1px #006e06;}
+    footer{text-align:center;margin-top:10px;color:rgb(245, 220, 0);font-style:italic;font-size:clamp(12px,3.5vw,14px);}
+    .edit-toggle{position:absolute;top:10px;right:10px;background:rgba(20,54,44,.85);color:var(--gold);
+      border:1px solid rgba(212,175,55,.4);padding:6px 10px;border-radius:999px;font-size:13px;cursor:pointer;user-select:none;}
+    [contenteditable="true"]{outline:none;}
+    .editing [data-edit]{box-shadow:inset 0 -6px 0 rgba(212,175,55,.18);border-radius:4px}
+  </style>
+</head>
+<body>
+  <main class="card" id="card">
+    <button class="edit-toggle" id="editBtn">✏️ Editar</button>
+    <header>
+      <svg class="tiara" viewBox="0 0 512 512"><path fill="currentColor" d="M256 64c-28 32-48 88-48 128 0 53 43 96 96 96s96-43 96-96c0-40-20-96-48-128-11 48-48 80-96 80s-85-32-96-80z"/></svg>
+      <p class="lead" data-edit data-key="intro" contenteditable="false">Acompáñanos a celebrar los 15 años de</p>
+      <h1 data-edit data-key="nombre" contenteditable="false">Jeydi Arias</h1>
+    </header>
+    <p class="quote" data-edit data-key="frase" contenteditable="false">“Existen momentos inolvidables que permanecen grabados en el corazón para siempre.”</p>
+    <section class="details">
+      <div class="date" data-edit data-key="fecha" contenteditable="false">30 de agosto</div>
+      <div class="time" data-edit data-key="hora" contenteditable="false">6:00 pm</div>
+    </section>
+    <p class="address" data-edit data-key="direccion" contenteditable="false">Quintanilla km 3.8 · Salón de eventos La Pascana</p>
+    <div class="actions">
+      <a id="btnWapp" class="btn" href="#" target="_blank">💬 Confirmar</a>
+      <a id="btnMaps" class="btn btn--outline" href="#" target="_blank">📍 Ver ubicación</a>
+    </div>
+    <footer><p>¡Te esperamos!</p></footer>
+  </main>
+  <script>
+    const CONFIG={whatsappNumber:"+59163607213",mapsQueryFallback:"Quintanilla km 3.8, Salón de eventos La Pascana, Bolivia"};
+    const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];const state={};
+    function load(){const saved=localStorage.getItem("inv15_jeydi");if(saved)Object.assign(state,JSON.parse(saved));
+      $$('[data-edit]').forEach(el=>state[el.dataset.key]??=el.textContent);paint();}
+    function save(){localStorage.setItem("inv15_jeydi",JSON.stringify(state));buildLinks();}
+    function paint(){for(const[k,v]of Object.entries(state)){const el=document.querySelector(`[data-key="${k}"]`);if(el)el.textContent=v;}buildLinks();}
+    function buildLinks(){const msg=`Hola, confirmo mi asistencia a los 15 años de ${state.nombre} el ${state.fecha} a las ${state.hora}. Soy: `;
+      $("#btnWapp").href=`https://wa.me/${CONFIG.whatsappNumber.replace(/[^\d]/g,"")}?text=${encodeURIComponent(msg)}`;
+      $("#btnMaps").href=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(state.direccion||CONFIG.mapsQueryFallback)}`;}
+    let editing=false;$("#editBtn").addEventListener("click",()=>{$("#card").classList.toggle("editing",!editing);editing=!editing;$$('[data-edit]').forEach(el=>el.contentEditable=editing?"true":"false");});
+    $$('[data-edit]').forEach(el=>{el.addEventListener("blur",()=>{state[el.dataset.key]=el.textContent.trim();save();});el.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();el.blur();}});});
+    load();
+  </script>
+</body>
+</html>
